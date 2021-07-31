@@ -36,7 +36,7 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 	_ = json.NewDecoder(r.Body).Decode(&user)
 	users = append(users, user)
 
-	json.NewEncoder(w).Encode(user)
+	w.WriteHeader(http.StatusNoContent)
 }
 
 func deleteUser(w http.ResponseWriter, r *http.Request) {
@@ -49,5 +49,5 @@ func deleteUser(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 	}
-	json.NewEncoder(w).Encode(users)
+	w.WriteHeader(http.StatusNoContent)
 }

@@ -48,3 +48,8 @@ Request example
 curl --request DELETE \
   --url http://localhost:8080/user/<user_id>
 ```
+Success example
+
+```bash
+HTTP/1.1 204 No Content
+```

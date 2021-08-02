@@ -15,6 +15,7 @@ var router = mux.NewRouter()
 func init() {
 	var err error
 
+	// pass in 1 => use memory as storage space
 	err = models.NewStorage(models.Memory)
 	if err != nil {
 		log.Fatal(err)

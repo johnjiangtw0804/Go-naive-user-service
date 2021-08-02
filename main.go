@@ -5,16 +5,27 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/user/jonathan/Go-naive-user-servive/handlers"
+	"github.com/user/jonathan/Go-naive-user-servive/models"
 )
 
+// init mux router
+var router = mux.NewRouter()
+
+func init() {
+	var err error
+
+	err = models.NewStorage(models.Memory)
+	if err != nil {
+		log.Fatal(err)
+	}
+	router.HandleFunc("/user/{user_id}", handlers.GetUser).Methods("GET")
+	router.HandleFunc("/user", handlers.CreateUser).Methods("POST")
+	router.HandleFunc("/user/{user_id}", handlers.DeleteUser).Methods("DELETE")
+}
+
 func main() {
-	// init mux router
-	// type inference :=
-	r := mux.NewRouter()
 	// Route handler / Endpoints
 	log.Println("Server starting")
-	r.HandleFunc("/user/{user_id}", getUser).Methods("GET")
-	r.HandleFunc("/user", createUser).Methods("POST")
-	r.HandleFunc("/user/{user_id}", deleteUser).Methods("DELETE")
-	log.Fatal(http.ListenAndServe(":8080", r))
+	log.Fatal(http.ListenAndServe(":8080", router))
 }

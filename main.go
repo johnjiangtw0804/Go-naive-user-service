@@ -6,17 +6,17 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/user/jonathan/Go-naive-user-servive/handlers"
-	"github.com/user/jonathan/Go-naive-user-servive/models"
 )
 
 // init mux router
 var router = mux.NewRouter()
+var database Storage
 
 func init() {
 	var err error
 
 	// pass in 1 => use memory as storage space
-	err = models.NewStorage(models.Memory)
+	database, err = NewStorage(Memory)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -27,6 +27,6 @@ func init() {
 
 func main() {
 	// Route handler / Endpoints
-	log.Println("Server starting")
+	log.Println("Server starting... listening at port 8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

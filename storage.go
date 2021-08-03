@@ -22,7 +22,7 @@ func NewStorage(storageType StorageType) (Storage, error) {
 
 	switch storageType {
 	case Memory:
-		database = new(StorageMemory)
+		database = NewMemStorage()
 	}
 
 	return database, err

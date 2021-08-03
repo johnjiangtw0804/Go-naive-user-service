@@ -10,6 +10,10 @@ type StorageMemory struct {
 	ids   map[string]bool
 }
 
+func NewMemStorage() *StorageMemory {
+	return &StorageMemory{make([]User, 0), make(map[string]bool)}
+}
+
 func (s *StorageMemory) GetUsers() ([]User, error) {
 	// Get the users
 	for _, user := range s.users {
@@ -69,6 +73,7 @@ func (s *StorageMemory) DeleteUser(id string) error {
 		if user.ID == id {
 			// start to index, index + 1 to the end <= this will not inclue the user[index]
 			s.users = append(s.users[:index], s.users[index+1:]...)
+			delete(s.ids, id)
 			log.Println("handlers.go: User with id: ", id, " deleted")
 			return nil
 		}

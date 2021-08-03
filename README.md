@@ -1,5 +1,10 @@
 # Go-naive-user-service
-這是一個簡單的go user service api. 在local 上可以使用 go mod init Go-naive-user-service, go build 然後 ./Go-naive-user-service
+這是一個簡單的go user service api. 在local 上可以使用
+1 go mod init Go-naive-user-service
+2 go build
+3 ./Go-naive-user-service
+去啟動server.
+
 再來client可以使用以下方法操作
 ## Get user
 

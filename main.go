@@ -22,6 +22,7 @@ func init() {
 	}
 
 	// init the router
+	router.HandleFunc("/user/listAll", GetUsers).Methods("GET")
 	router.HandleFunc("/user/{user_id}", GetUser).Methods("GET")
 	router.HandleFunc("/user", CreateUser).Methods("POST")
 	router.HandleFunc("/user/{user_id}", DeleteUser).Methods("DELETE")

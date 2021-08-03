@@ -9,6 +9,7 @@ const Memory StorageType = 0
 
 // type interface for different database to implement
 type Storage interface {
+	GetUsers() ([]User, error)
 	GetUser(id string) (User, error)
 	CreateUser(User) error
 	DeleteUser(id string) error

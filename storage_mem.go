@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"errors"
 	"log"
 )
 
@@ -9,34 +9,63 @@ type StorageMemory struct {
 	users []User
 }
 
+func (s *StorageMemory) GetUsers() ([]User, error) {
+	// Get the users
+	for _, user := range s.users {
+		log.Println("handlers.go: Returned User: ", user.ID, " ", user.AGE)
+	}
+	if len(s.users) != 0 {
+		return s.users, nil
+	}
+
+	// Cant get the users
+	log.Println("handlers.go: No users in memory storage")
+	return s.users, errors.New("no data")
+}
+
 func (s *StorageMemory) GetUser(id string) (User, error) {
+	// Get the user
 	for _, user := range s.users {
 		if user.ID == id {
-			log.Println("Returned user with id: ", id)
+			log.Println("handlers.go: Returned user with id: ", id)
 			return user, nil
 		}
 	}
-	log.Println("User with id: ", id, " not found")
-	return User{ID: "", AGE: 0}, fmt.Errorf("no user found")
+
+	// Cant get the user
+	log.Println("handlers.go: User with id: ", id, " not found")
+	return User{ID: "", AGE: 0}, errors.New("no data")
 }
 
 func (s *StorageMemory) CreateUser(user User) error {
-	if user.AGE < 0 {
-		return fmt.Errorf("age cant be negative")
+	// Cant create the user
+	if len(user.ID) == 0 {
+		log.Println("handlers.go: User input empty ID: ", user.ID)
+		return errors.New("empty string")
 	}
+	if user.AGE < 0 {
+		log.Println("handlers.go: User input negative age: ", user.AGE)
+		return errors.New("negative age")
+	}
+
+	// Create the user
 	s.users = append(s.users, user)
-	log.Println("User with id: ", user.ID, " created")
+	log.Println("handlers.go: User with id: ", user.ID, " created")
 	return nil
 }
 
 func (s *StorageMemory) DeleteUser(id string) error {
+	// Delete the user
 	for index, user := range s.users {
 		if user.ID == id {
+			// start to index, index + 1 to the end <= this will not inclue the user[index]
 			s.users = append(s.users[:index], s.users[index+1:]...)
-			log.Println("User with id: ", id, " deleted")
+			log.Println("handlers.go: User with id: ", id, " deleted")
 			return nil
 		}
 	}
-	log.Println("User with id: ", id, " not found")
-	return fmt.Errorf("no user found to delete")
+
+	// Cant delete the user
+	log.Println("handlers.go: User with id: ", id, " not found")
+	return errors.New("no data")
 }

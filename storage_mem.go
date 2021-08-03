@@ -71,7 +71,7 @@ func (s *StorageMemory) DeleteUser(id string) error {
 	// Delete the user
 	for index, user := range s.users {
 		if user.ID == id {
-			// start to index, index + 1 to the end <= this will not inclue the user[index]
+			// remove id from the map and user list
 			s.users = append(s.users[:index], s.users[index+1:]...)
 			delete(s.ids, id)
 			log.Println("handlers.go: User with id: ", id, " deleted")

@@ -7,6 +7,7 @@ import (
 
 type StorageMemory struct {
 	users []User
+	ids   map[string]bool
 }
 
 func (s *StorageMemory) GetUsers() ([]User, error) {
@@ -47,11 +48,19 @@ func (s *StorageMemory) CreateUser(user User) error {
 		log.Println("handlers.go: User input negative age: ", user.AGE)
 		return errors.New("negative age")
 	}
+	_, exist := s.ids[user.ID]
 
-	// Create the user
-	s.users = append(s.users, user)
-	log.Println("handlers.go: User with id: ", user.ID, " created")
-	return nil
+	if !exist {
+		// Create the user
+		s.users = append(s.users, user)
+		// Set ID to exist
+		s.ids[user.ID] = true
+		log.Println("handlers.go: User with id: ", user.ID, " created")
+		return nil
+	} else {
+		log.Println("handlers.go: User input duplicate ID: ", user.ID)
+		return errors.New("duplicate ID")
+	}
 }
 
 func (s *StorageMemory) DeleteUser(id string) error {

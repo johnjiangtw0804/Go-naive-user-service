@@ -11,6 +11,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 
+	// database provides API for GetUser service
 	var user, err = database.GetUser(params["user_id"])
 	if err != nil {
 		// no user found code 204
@@ -21,8 +22,10 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+
 	var user User
 	_ = json.NewDecoder(r.Body).Decode(&user)
+
 	var err = database.CreateUser(user)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -32,8 +35,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	params := mux.Vars(r)
 
+	params := mux.Vars(r)
 	var err = database.DeleteUser(params["user_id"])
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)

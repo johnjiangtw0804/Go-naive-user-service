@@ -19,6 +19,7 @@ func (s *StorageMemory) GetUser(id string) (User, error) {
 	log.Println("User with id: ", id, " not found")
 	return User{ID: "", AGE: 0}, fmt.Errorf("no user found")
 }
+
 func (s *StorageMemory) CreateUser(user User) error {
 	if user.AGE < 0 {
 		return fmt.Errorf("age cant be negative")

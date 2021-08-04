@@ -1,12 +1,22 @@
-# Go-naive-user-service
-這是一個簡單的go user service api. 在local 上可以使用
-1 go mod init Go-naive-user-service
-2 go build
-3 ./Go-naive-user-service
-去啟動server.
+<p>
 
-再來client可以使用以下方法操作
-## Get user
+# Go-naive-user-service
+這是一個簡單的go user service api. 在 "local" 上專案目錄下可以使用以下步驟去啟動server. <br>
+1. go mod init Go-naive-user-service<br>
+2. go build<br>
+3. ./Go-naive-user-service<br>
+
+## Bonus
+以下操作可以使用 Docker 將應用程式容器化 <br>
+1. docker image build -t go-naive-v01 . 
+2. docker image ls (optional, just to make sure the image has been created)
+3. docker run -dp 8080:8080 -it go-naive-v01
+(optional)
+docker ps (to look for process status)
+docker docker exec -it 6cdcf43181b0 /bin/bash (run bash on container to interact with the container incase you need anything)
+
+## Client操作方法
+### Get user
 
 Request example
 ```bash
@@ -29,7 +39,7 @@ Connection: close
 }
 ```
 
-## Create user
+### Create user
 
 Request example
 
@@ -46,7 +56,7 @@ Success example
 HTTP/1.1 204 No Content
 ```
 
-## Delete user
+### Delete user
 
 Request example
 
@@ -59,3 +69,4 @@ Success example
 ```bash
 HTTP/1.1 204 No Content
 ```
+<p>

@@ -12,11 +12,11 @@
 2. docker image ls (optional, just to make sure the image has been created) <br>
 3. docker run -dp 8080:8080 -it go-naive-v01 <br>
 使用完成後用以下指令Stop container<br>
-   docker stop #containerId
+   docker stop \<containerId\>
 	
 (optional) <br>
 docker ps <to look for process status> <br>
-docker docker exec -it #containerId /bin/bash (run bash on container to interact with the container incase you need anything)
+docker docker exec -it \<containerId\> /bin/bash (run bash on container to interact with the container incase you need anything)
 
 ## Client操作方法
 ### Get user
